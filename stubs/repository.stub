@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+class {{ class }}
+{
+    /**
+     * Define the methods that the repository should implement.
+     */
+}

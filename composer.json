@@ -1,0 +1,26 @@
+{
+    "name": "fatihrizqon/laravel-service-repo-generator",
+    "description": "Artisan command to generate Service & Repository in Laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Fatihrizqon\\ServiceRepoGenerator\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fatihrizqon\\ServiceRepoGenerator\\ServiceRepoGeneratorServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0|^12.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0"
+    },
+    "minimum-stability": "stable"
+}
