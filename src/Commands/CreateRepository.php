@@ -6,24 +6,18 @@ use Illuminate\Console\GeneratorCommand;
 
 class CreateRepository extends GeneratorCommand
 {
-    protected $name = 'create:repository {name}';
+    protected $signature = 'create:repository {name}';
     protected $description = 'Create a new repository and repository interface';
     protected $type = 'Repository';
 
-    /**
-     * Path ke stub package
-     */
     protected function getStub()
     {
-        return __DIR__ . '/../../stubs/repository.stub';
+        return __DIR__.'/../../stubs/repository.stub';
     }
 
-    /**
-     * Default namespace for repository
-     */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . 'Repositories';
+        return $rootNamespace.'\\Repositories';
     }
 
     public function handle()
@@ -35,42 +29,30 @@ class CreateRepository extends GeneratorCommand
     protected function createRepositoryInterface()
     {
         $name = $this->argument('name');
-        $interfaceName = 'I' . $name;
+        $interfaceName = 'I'.$name;
 
-        $namespace = 'Repositories\\Interfaces';
-        $namespacePath = $this->getNamespacePath($namespace);
+        $path = app_path('Repositories/Interfaces');
+        $file = $path.'/'.$interfaceName.'.php';
 
-        $path = $namespacePath . DIRECTORY_SEPARATOR . $interfaceName . '.php';
-
-        if (file_exists($path)) {
-            $this->error("Interface $interfaceName already exists!");
+        if (file_exists($file)) {
+            $this->error("Interface {$interfaceName} already exists!");
             return;
         }
 
-        if (!is_dir($namespacePath)) {
-            mkdir($namespacePath, 0755, true);
+        if (!is_dir($path)) {
+            mkdir($path, 0755, true);
         }
 
-        $stub = file_get_contents(__DIR__ . '/../../stubs/repository-interface.stub');
-
-        $rootNamespace = $this->laravel->getNamespace();
-        $fullNamespace = $rootNamespace . $namespace;
+        $stub = file_get_contents(__DIR__.'/../../stubs/repository-interface.stub');
 
         $stub = str_replace(
             ['{{ namespace }}', '{{ class }}'],
-            [$fullNamespace, $interfaceName],
+            [$this->laravel->getNamespace().'Repositories\\Interfaces', $interfaceName],
             $stub
         );
 
-        file_put_contents($path, $stub);
+        file_put_contents($file, $stub);
 
-        $this->info("Repository Interface created successfully: $path");
-    }
-
-    protected function getNamespacePath($namespace)
-    {
-        $rootNamespace = $this->laravel->getNamespace();
-        $relativePath = str_replace('\\', '/', $namespace);
-        return app_path($relativePath);
+        $this->info("Repository Interface created: {$file}");
     }
 }

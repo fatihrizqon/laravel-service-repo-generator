@@ -6,18 +6,18 @@ use Illuminate\Console\GeneratorCommand;
 
 class CreateService extends GeneratorCommand
 {
-    protected $name = 'create:service {name}';
+    protected $signature = 'create:service {name}';
     protected $description = 'Create a new service and service interface';
     protected $type = 'Service';
 
     protected function getStub()
     {
-        return __DIR__ . '/../../stubs/service.stub';
+        return __DIR__.'/../../stubs/service.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . 'Services';
+        return $rootNamespace.'\\Services';
     }
 
     public function handle()
@@ -29,37 +29,30 @@ class CreateService extends GeneratorCommand
     protected function createServiceInterface()
     {
         $name = $this->argument('name');
-        $interfaceName = 'I' . $name;
+        $interfaceName = 'I'.$name;
 
-        $namespace = 'Services\\Interfaces';
-        $namespacePath = $this->getNamespacePath($namespace);
-        $path = $namespacePath . DIRECTORY_SEPARATOR . $interfaceName . '.php';
+        $path = app_path('Services/Interfaces');
+        $file = $path.'/'.$interfaceName.'.php';
 
-        if (file_exists($path)) {
-            $this->error("Interface $interfaceName already exists!");
+        if (file_exists($file)) {
+            $this->error("Interface {$interfaceName} already exists!");
             return;
         }
 
-        if (!is_dir($namespacePath)) {
-            mkdir($namespacePath, 0755, true);
+        if (!is_dir($path)) {
+            mkdir($path, 0755, true);
         }
 
-        $stub = file_get_contents(__DIR__ . '/../../stubs/service-interface.stub');
+        $stub = file_get_contents(__DIR__.'/../../stubs/service-interface.stub');
 
-        $rootNamespace = $this->laravel->getNamespace();
-        $fullNamespace = $rootNamespace . $namespace;
+        $stub = str_replace(
+            ['{{ namespace }}', '{{ class }}'],
+            [$this->laravel->getNamespace().'Services\\Interfaces', $interfaceName],
+            $stub
+        );
 
-        $stub = str_replace(['{{ namespace }}', '{{ class }}'], [$fullNamespace, $interfaceName], $stub);
+        file_put_contents($file, $stub);
 
-        file_put_contents($path, $stub);
-
-        $this->info("Service Interface created successfully: $path");
-    }
-
-    protected function getNamespacePath($namespace)
-    {
-        $rootNamespace = $this->laravel->getNamespace();
-        $relativePath = str_replace('\\', '/', $namespace);
-        return app_path($relativePath);
+        $this->info("Service Interface created: {$file}");
     }
 }
