@@ -62,7 +62,7 @@ stubs/service-repo-generator/
 ### Generate a Service
 
 ```bash
-php artisan make:service User
+php artisan create:service User
 ```
 
 This command will generate:
@@ -77,7 +77,7 @@ app/Services/Interfaces/IUserService.php
 ### Generate a Repository
 
 ```bash
-php artisan make:repository User
+php artisan create:repository User
 ```
 
 This command will generate:

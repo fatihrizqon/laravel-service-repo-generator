@@ -28,11 +28,11 @@ class CreateRepository extends GeneratorCommand
 
     protected function createRepositoryInterface()
     {
-        $name = $this->argument('name');
+        $name = $this->argument('name').'Repository';
         $interfaceName = 'I'.$name;
 
         $path = app_path('Repositories/Interfaces');
-        $file = $path.'/'.$interfaceName.'.php';
+        $file = $path.'/'.$interfaceName.'Repository.php';
 
         if (file_exists($file)) {
             $this->error("Interface {$interfaceName} already exists!");
