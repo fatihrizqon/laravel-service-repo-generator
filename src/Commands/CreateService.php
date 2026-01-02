@@ -4,9 +4,9 @@ namespace Fatihrizqon\ServiceRepoGenerator\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class MakeService extends GeneratorCommand
+class CreateService extends GeneratorCommand
 {
-    protected $name = 'make:service';
+    protected $name = 'create:service';
     protected $description = 'Create a new service and service interface';
     protected $type = 'Service';
 

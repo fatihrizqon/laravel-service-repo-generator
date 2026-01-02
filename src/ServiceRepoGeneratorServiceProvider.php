@@ -3,8 +3,8 @@
 namespace Fatihrizqon\ServiceRepoGenerator;
 
 use Illuminate\Support\ServiceProvider;
-use Fatihrizqon\ServiceRepoGenerator\Commands\MakeService;
-use Fatihrizqon\ServiceRepoGenerator\Commands\MakeRepository;
+use Fatihrizqon\ServiceRepoGenerator\Commands\CreateService;
+use Fatihrizqon\ServiceRepoGenerator\Commands\CreateRepository;
 
 class ServiceRepoGeneratorServiceProvider extends ServiceProvider
 {
@@ -20,8 +20,8 @@ class ServiceRepoGeneratorServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                MakeService::class,
-                MakeRepository::class,
+                CreateService::class,
+                CreateRepository::class,
             ]);
 
             $this->publishes([
