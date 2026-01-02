@@ -28,11 +28,11 @@ class CreateService extends GeneratorCommand
 
     protected function createServiceInterface()
     {
-        $name = $this->argument('name').'Service';
+        $name = $this->argument('name');
         $interfaceName = 'I'.$name;
 
         $path = app_path('Services/Interfaces');
-        $file = $path.'/'.$interfaceName.'Service.php';
+        $file = $path.'/'.$interfaceName.'.php';
 
         if (file_exists($file)) {
             $this->error("Interface {$interfaceName} already exists!");
