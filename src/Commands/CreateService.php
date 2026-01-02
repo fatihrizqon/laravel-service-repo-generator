@@ -6,7 +6,7 @@ use Illuminate\Console\GeneratorCommand;
 
 class CreateService extends GeneratorCommand
 {
-    protected $name = 'create:service';
+    protected $name = 'create:service {name}';
     protected $description = 'Create a new service and service interface';
     protected $type = 'Service';
 

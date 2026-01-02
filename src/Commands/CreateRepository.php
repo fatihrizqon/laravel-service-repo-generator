@@ -6,7 +6,7 @@ use Illuminate\Console\GeneratorCommand;
 
 class CreateRepository extends GeneratorCommand
 {
-    protected $name = 'create:repository';
+    protected $name = 'create:repository {name}';
     protected $description = 'Create a new repository and repository interface';
     protected $type = 'Repository';
 
